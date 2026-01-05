@@ -6,4 +6,21 @@
     justify-content: center;
     gap: 10px;
 }
+.game-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
 
+
+.front-card{
+    width: 120px;
+    height: 120px;
+}
+
+.back-card{
+    width: 120px;
+    height: 120px;
+}

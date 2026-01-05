@@ -14,6 +14,7 @@ const flipCard = (card) => {
     
     card.isFlipped = true;
     addChoosenCard(card);
+    updateCardDisplay(card);
     
     // Si on a 2 cartes, déclencher la vérification
     if (isChoosenCards()) {
@@ -102,9 +103,11 @@ const choosenCardsFunction = (card1, card2) => {
         setTimeout(() => {
             unflipCard(card1);
             unflipCard(card2);
+            updateCardDisplay(card1);
+            updateCardDisplay(card2);
             clearChoosenCards();
             isProcessing = false;
-        }, 2000);
+        }, 1000);
     }
 }
 
@@ -148,7 +151,6 @@ const gameStart = () => {
     // Réinitialiser l'affichage des statistiques
     statsUI.updateTries(0);
     statsUI.updateTimeFormatted(0);
-    
     shuffleCards();
     startTimer();
 }
@@ -156,6 +158,18 @@ const gameStart = () => {
 const gameEnd = () => {
     stopTimer();
     alert(gameState.victoryMessage);
+}
+
+// gestion de l'état image 
+const updateCardDisplay = (card) => {
+    const cardElement = document.getElementById(`card-${card.id}`);
+    if (cardElement) {
+        if (card.isFlipped || card.isMatched) {
+            cardElement.src = card.value;
+        } else {
+            cardElement.src = "src/assets/back.jpg";
+        }
+    }
 }
 export default { 
     flipCard, 
