@@ -6,24 +6,54 @@ let cards = [{
 },
 {
     id: 1,
-    value: 'src/assets/2.webp',
+    value: "src/assets/1.jpeg",
     isFlipped: false,
     isMatched: false,
 },
 {
     id: 2,
-    value: 'src/assets/3.jpg',
+    value: 'src/assets/2.webp',
     isFlipped: false,
     isMatched: false,
 },
 {
     id: 3,
-    value: 'src/assets/4.avif',
+    value: 'src/assets/2.webp',
     isFlipped: false,
     isMatched: false,
 },
 {
     id: 4,
+    value: 'src/assets/3.jpg',
+    isFlipped: false,
+    isMatched: false,
+},
+{
+    id: 5,
+    value: 'src/assets/3.jpg',
+    isFlipped: false,
+    isMatched: false,
+},
+{
+    id: 6,
+    value: 'src/assets/4.avif',
+    isFlipped: false,
+    isMatched: false,
+},
+{
+    id: 7,
+    value: 'src/assets/4.avif',
+    isFlipped: false,
+    isMatched: false,
+},
+{
+    id: 8,
+    value: 'src/assets/5.jpg',
+    isFlipped: false,
+    isMatched: false,
+},
+{
+    id: 9,
     value: 'src/assets/5.jpg',
     isFlipped: false,
     isMatched: false,
@@ -32,7 +62,8 @@ let cards = [{
 ]
 
 let tryCount = 0;
-let timer = 0;
-const victoryMessage= " Vous avez gagné !";
+let timerCount = 0;
+let timerInterval = null;
+const victoryMessage = " Vous avez gagné !";
 
-export default { cards, tryCount, timer, victoryMessage };
+export default { cards, tryCount, timerCount, timerInterval, victoryMessage };
