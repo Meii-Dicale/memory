@@ -12,7 +12,7 @@ export function initBoard() {
 
     let index = 0;
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < cards.length/2; i++) {
         const row = document.createElement("tr");
 
         for (let j = 0; j < 2; j++) {
