@@ -35,7 +35,6 @@ export function initBoard() {
         table.appendChild(row);
     }
 
-    console.log("ici");
 
     gameContainer.appendChild(table);
 }
