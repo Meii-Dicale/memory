@@ -62,7 +62,8 @@ let cards = [{
 ]
 
 let tryCount = 0;
-let timer = 0;
-const victoryMessage= " Vous avez gagné !";
+let timerCount = 0;
+let timerInterval = null;
+const victoryMessage = " Vous avez gagné !";
 
-export default { cards, tryCount, timer, victoryMessage };
+export default { cards, tryCount, timerCount, timerInterval, victoryMessage };
