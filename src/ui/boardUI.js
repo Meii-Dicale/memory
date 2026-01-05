@@ -1,4 +1,5 @@
 import gameState from "../game/gameState.js";
+import gameLogic from "../game/gameLogic.js";
 
 const cards = gameState.cards;
 
@@ -20,11 +21,18 @@ export function initBoard() {
             const card = cards[index];
 
             const img = document.createElement("img");
-            img.src = card.value;
-            img.classList.add("hidden");
+            img.id = `card-${card.id}`;
+            img.src = "src/assets/back.jpg";
+            img.classList.add("back-card");
 
             cell.dataset.cardId = card.id;
             cell.appendChild(img);
+            cell.addEventListener("click", () => {
+                const cardId = parseInt(cell.dataset.cardId);
+                const card = gameState.cards.find(c => c.id === cardId);
+                gameLogic.flipCard(card);
+            });
+
 
             row.appendChild(cell);
             index++;
@@ -36,4 +44,5 @@ export function initBoard() {
     console.log("ici");
 
     gameContainer.appendChild(table);
+
 }
