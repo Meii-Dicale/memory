@@ -4,7 +4,4 @@ import statsUI from './ui/statsUI.js';
 import { initBoard } from "./ui/boardUI.js";
 document.addEventListener('DOMContentLoaded', () => {
     gameLogic.gameStart();
-    initBoard();
-    
-
 });

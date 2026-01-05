@@ -1,5 +1,6 @@
 import gameState from './gameState.js';
 import statsUI from '../ui/statsUI.js';
+import { initBoard } from '../ui/boardUI.js';
 
 // ===== Variables d'état local =====
 let choosenCards = [];
@@ -135,31 +136,102 @@ const allCardsMatched = () => {
 }
 
 // ===== Fonctions de jeu globales =====
-const gameStart = () => {
+const launchGame = () => {
+    // Initialiser les cartes actives selon la difficulté
+    if (gameState.difficulty === 1) {
+        gameState.cards = [...gameState.cardNormal];
+    } else {
+        gameState.cards = [...gameState.cardDifficult];
+    }
+
     // Réinitialiser l'état
     gameState.tryCount = 0;
     gameState.timerCount = 0;
     clearChoosenCards();
     isProcessing = false;
-    
+
     // Réinitialiser toutes les cartes
     gameState.cards.forEach(card => {
         card.isFlipped = false;
         card.isMatched = false;
     });
-    
+
     // Réinitialiser l'affichage des statistiques
     statsUI.updateTries(0);
     statsUI.updateTimeFormatted(0);
+    
     shuffleCards();
+    
+    // Nettoyer le plateau avant de le recréer
+    const gameContainer = document.querySelector(".game-container");
+    gameContainer.innerHTML = "";
+    
+    initBoard();
     startTimer();
+}
+
+const gameStart = () => {
+    stopTimer();
+
+    // Nettoyer l'interface
+    const gameContainer = document.querySelector(".game-container");
+    gameContainer.innerHTML = "";
+
+    const replayButton = document.getElementById("replay-button");
+    if (replayButton) replayButton.remove();
+    
+    const oldDiffButton = document.getElementById("difficulty-button");
+    if (oldDiffButton) oldDiffButton.remove();
+
+    // Supprimer un éventuel menu existant (nettoyage de sécurité)
+    const existingMenu = document.getElementById("menu-container");
+    if (existingMenu) existingMenu.remove();
+
+    // Création du menu de sélection
+    const menuContainer = document.createElement("div");
+    menuContainer.id = "menu-container";
+    menuContainer.style.textAlign = "center";
+    menuContainer.style.marginBottom = "20px";
+
+    const btnEasy = document.createElement("button");
+    btnEasy.textContent = "Facile";
+    btnEasy.style.marginRight = "10px";
+    btnEasy.addEventListener("click", () => {
+        gameState.difficulty = 1;
+        launchGame();
+    });
+
+    const btnHard = document.createElement("button");
+    btnHard.textContent = "Difficile";
+    btnHard.addEventListener("click", () => {
+        gameState.difficulty = 2;
+        launchGame();
+    });
+
+    menuContainer.appendChild(btnEasy);
+    menuContainer.appendChild(btnHard);
+    
+    gameContainer.appendChild(menuContainer);
 }
 
 const gameEnd = () => {
     stopTimer();
     alert(gameState.victoryMessage);
-}
 
+    // Ne pas ajouter de bouton si un existe déjà
+    if (document.getElementById("replay-button")) return;
+
+    // ajouter un bouton rejouer
+    const replayButton = document.createElement("button");
+    replayButton.id = "replay-button";
+    replayButton.textContent = "Rejouer";
+    replayButton.addEventListener("click", () => {
+        gameStart();
+    });
+    document.body.appendChild(replayButton);
+    gameState.winCount++;
+    statsUI.updateWinCount(gameState.winCount);
+}
 // gestion de l'état image 
 const updateCardDisplay = (card) => {
     const cardElement = document.getElementById(`card-${card.id}`);

@@ -37,9 +37,23 @@ const updateTimeFormatted = (seconds) => {
     }
 }
 
+//update le nombre de victoires
+const getWinCountElement = () => {
+    return document.getElementById('win-count');
+}
+const updateWinCount = (count) => {
+    const winCountElement = getWinCountElement();
+    if (winCountElement) {
+        winCountElement.textContent = count;
+    }
+}
+
+    
+
 export default {
     updateTries,
     updateTime,
     updateTimeFormatted,
-    formatTime
+    formatTime,
+    updateWinCount
 };
