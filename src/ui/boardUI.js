@@ -8,8 +8,6 @@ export function initBoard() {
     const table = document.createElement("table");
     table.classList.add("memory-grid");
 
-
-
     let index = 0;
 
     for (let i = 0; i < 5; i++) {
@@ -19,7 +17,7 @@ export function initBoard() {
             const cell = document.createElement("td");
             cell.classList.add("memory-cell");
 
-            const card = cards;
+            const card = cards[index];
 
             const img = document.createElement("img");
             img.src = card.value;
