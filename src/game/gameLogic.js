@@ -1,4 +1,5 @@
 import gameState from './gameState.js';
+import statsUI from '../ui/statsUI.js';
 
 // ===== Variables d'état local =====
 let choosenCards = [];
@@ -83,6 +84,7 @@ const shuffleCards = () => {
 const choosenCardsFunction = (card1, card2) => {
     isProcessing = true;
     gameState.tryCount++;
+    statsUI.updateTries(gameState.tryCount);
     
     if (checkMatch(card1, card2)) {
         // Les cartes correspondent
@@ -113,6 +115,7 @@ const startTimer = () => {
     }
     gameState.timerInterval = setInterval(() => {
         gameState.timerCount++;
+        statsUI.updateTimeFormatted(gameState.timerCount);
     }, 1000);
 }
 
@@ -142,6 +145,10 @@ const gameStart = () => {
         card.isMatched = false;
     });
     
+    // Réinitialiser l'affichage des statistiques
+    statsUI.updateTries(0);
+    statsUI.updateTimeFormatted(0);
+    
     shuffleCards();
     startTimer();
 }
@@ -150,7 +157,6 @@ const gameEnd = () => {
     stopTimer();
     alert(gameState.victoryMessage);
 }
-
 export default { 
     flipCard, 
     canFlipCard,
